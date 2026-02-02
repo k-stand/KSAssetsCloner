@@ -32,7 +32,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -61,10 +60,19 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             // ussを適用
             uxml.styleSheets.Add(styleSheet);
 
-            ListView u_CloneObjects = Bind<ListView>(uxml, UxmlNames.CloneObjects, serializedObject, nameof(KSAssetsCloner._CloneObjects));
-            Toggle u_RelativeDistDir = Bind<Toggle>(uxml, UxmlNames.RelativeDistDir, serializedObject, nameof(KSAssetsCloner._RelativeDistDir));
-            TextField u_DistDir = Bind<TextField>(uxml, UxmlNames.DistDir, serializedObject, nameof(KSAssetsCloner._DistDir));
-            Toggle u_Clone2Variant = Bind<Toggle>(uxml, UxmlNames.Clone2Variant, serializedObject, nameof(KSAssetsCloner._Clone2Variant));
+            KSAssetsCloner castedTargetObject = serializedObject.targetObject as KSAssetsCloner;
+
+            ListView u_CloneAssets = BindHelper.Bind<ListView>(uxml, UxmlNames.CloneAssets, serializedObject, nameof(KSAssetsCloner._CloneAssets));
+            TextField u_DistDir = BindHelper.Bind<TextField>(uxml, UxmlNames.DistDir, serializedObject, nameof(KSAssetsCloner._DistDir));
+            Toggle u_Clone2Variant = BindHelper.Bind<Toggle>(uxml, UxmlNames.Clone2Variant, serializedObject, nameof(KSAssetsCloner._Clone2Variant));
+
+            u_CloneAssets.itemsAdded += (e) =>
+            {
+                foreach (int i in e)
+                {
+                    castedTargetObject._CloneAssets[i] = new() { _DoClone = true, _CloneAsset = null };
+                }
+            };
 
             Button u_ReferenceButton = uxml.Q<Button>(UxmlNames.ReferenceButton);
             u_ReferenceButton.clicked += () => { };
@@ -83,7 +91,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
         private static void OnCloneButtonClickedEventHandler(VisualElement uxml, SerializedObject so)
         {
-            SerializedProperty cloneObjectsSP = so.FindProperty(nameof(KSAssetsCloner._CloneObjects));
+            SerializedProperty cloneAssetsSP = so.FindProperty(nameof(KSAssetsCloner._CloneAssets));
             SerializedProperty distDirSP = so.FindProperty(nameof(KSAssetsCloner._DistDir));
 
             string currentDir = Environment.CurrentDirectory;
@@ -93,13 +101,35 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
             string distDir = distDirSP.stringValue;
             // 出力先ディレクトリ(正規化済)
-            string fullDistDir = Path.GetFullPath($"{thisAssetFullDir}/{distDir}");
+            string fullDistDir = "";
+            if (distDir.StartsWith("./") || distDir == "")
+            {
+                fullDistDir = Path.GetFullPath($"{thisAssetFullDir}/{distDir}");
+                if (!fullDistDir.Contains(ProjectRootDir + "Assets\\") && !fullDistDir.Contains(ProjectRootDir + "Packages\\"))
+                {
+                    EditorUtility.DisplayDialog("KS Assets Cloner", "保存先はプロジェクトの\"Assets/\"か\"Packages/\"フォルダ内でないといけません", "OK");
+                    return;
+                }
+            }
+            else
+            {
+                if (distDir.StartsWith("Assets/") || distDir.StartsWith("Packages/"))
+                {
+                    fullDistDir = Path.GetFullPath($"{ProjectRootDir}/{distDir}");
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("KS Assets Cloner", "絶対パスで保存する場合、\"Assets/\"か\"Packages/\"で始まる必要があります", "OK");
+                    return;
+                }
+            }
 
             Dictionary<string, CloneInfo> assetPath2CloneInfoMap = new();
-            for (int i = 0; i < cloneObjectsSP.arraySize; i++)
+            for (int i = 0; i < cloneAssetsSP.arraySize; i++)
             {
-                SerializedProperty elementSP = cloneObjectsSP.GetArrayElementAtIndex(i);
-                string basePath = AssetDatabase.GetAssetPath(elementSP.objectReferenceValue);
+                SerializedProperty elementSP = cloneAssetsSP.GetArrayElementAtIndex(i);
+                CloneAsset cloneAssetInfo = elementSP.managedReferenceValue as CloneAsset;
+                string basePath = AssetDatabase.GetAssetPath(cloneAssetInfo._CloneAsset);
 
                 if (Directory.Exists(basePath))
                 {
@@ -111,20 +141,20 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
                     string baseFullPath = Path.GetFullPath(basePath);
 
-                    assetPath2CloneInfoMap[baseFullPath] = new() { OriginalFullPath = baseFullPath, CloneFullPath = fixedBaseDistPath, IsFolder = true, DoClone = true };
+                    assetPath2CloneInfoMap[baseFullPath] = new() { OriginalFullPath = baseFullPath, CloneFullPath = fixedBaseDistPath, IsFolder = true, DoClone = cloneAssetInfo._DoClone };
 
                     foreach (string filePath in Directory.EnumerateFiles(baseFullPath, "*", SearchOption.AllDirectories))
                     {
                         if (Path.GetExtension(filePath) == ".meta")
                             continue;
                         string relativeFilePath = GetRelativePath(baseFullPath + "/", filePath);
-                        assetPath2CloneInfoMap[filePath] = new() { OriginalFullPath = filePath, CloneFullPath = Path.Combine(fixedBaseDistPath, relativeFilePath), IsFolder = false, DoClone = true };
+                        assetPath2CloneInfoMap[filePath] = new() { OriginalFullPath = filePath, CloneFullPath = Path.Combine(fixedBaseDistPath, relativeFilePath), IsFolder = false, DoClone = cloneAssetInfo._DoClone };
                     }
 
                     foreach (string filePath in Directory.EnumerateDirectories(baseFullPath, "*", SearchOption.AllDirectories))
                     {
                         string relativeFolderPath = GetRelativePath(baseFullPath + "/", filePath);
-                        assetPath2CloneInfoMap[filePath] = new() { OriginalFullPath = filePath, CloneFullPath = Path.Combine(fixedBaseDistPath, relativeFolderPath), IsFolder = true, DoClone = true };
+                        assetPath2CloneInfoMap[filePath] = new() { OriginalFullPath = filePath, CloneFullPath = Path.Combine(fixedBaseDistPath, relativeFolderPath), IsFolder = true, DoClone = cloneAssetInfo._DoClone };
                     }
                 }
                 else
@@ -137,7 +167,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
                     string baseFullPath = Path.GetFullPath(basePath);
 
-                    assetPath2CloneInfoMap[baseFullPath] = new() { OriginalFullPath = baseFullPath, CloneFullPath = fixedBaseDistPath, IsFolder = false, DoClone = true };
+                    assetPath2CloneInfoMap[baseFullPath] = new() { OriginalFullPath = baseFullPath, CloneFullPath = fixedBaseDistPath, IsFolder = false, DoClone = cloneAssetInfo._DoClone };
                 }
             }
 
@@ -194,6 +224,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
             foreach (CloneInfo cloneInfo in assetPath2CloneInfoMap.Values)
             {
+                if (!cloneInfo.DoClone) continue;
                 if (!File.Exists(cloneInfo.OriginalFullPath)) continue;
 
                 // prefabやanimationが参照するGUIDの書き換えを行う
@@ -205,6 +236,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
                     {
                         foreach (CloneInfo cloneInfo2 in assetPath2CloneInfoMap.Values)
                         {
+                            if (!cloneInfo2.DoClone) continue;
                             s = s.Replace(cloneInfo2.OriginalGUID, cloneInfo2.CloneGUID);
                         }
 
@@ -246,39 +278,25 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             return Uri.UnescapeDataString(new Uri(fromPath).MakeRelativeUri(new Uri(toPath)).ToString());
         }
 
-        public static T Bind<T>(
-            VisualElement root,
-            string elementName,
-            SerializedObject so,
-            string spPath
-        ) where T : VisualElement, IBindable
-        {
-            T element = root.Q<T>(elementName);
-            SerializedProperty property = so.FindProperty(spPath) ?? throw new ArgumentException($"SerializedProperty not found: path='{spPath}'", nameof(spPath));
-            element.BindProperty(property);
-            return element;
-        }
-
         private record CloneInfo
         {
-            public string OriginalFullPath { get; set; }
-            public string OriginalPath => GetRelativePath(ProjectRootDir, OriginalFullPath);
-            public string CloneFullPath { get; set; }
-            public string ClonePath => GetRelativePath(ProjectRootDir, CloneFullPath);
-            public string OriginalGUID { get; set; }
-            public string CloneGUID { get; set; }
-            public bool DoClone { get; set; }
-            public bool IsFolder { get; set; }
+            internal string OriginalFullPath { get; set; }
+            internal string OriginalPath => GetRelativePath(ProjectRootDir, OriginalFullPath);
+            internal string CloneFullPath { get; set; }
+            internal string ClonePath => GetRelativePath(ProjectRootDir, CloneFullPath);
+            internal string OriginalGUID { get; set; }
+            internal string CloneGUID { get; set; }
+            internal bool DoClone { get; set; }
+            internal bool IsFolder { get; set; }
         }
 
-        public record UxmlNames
+        internal record UxmlNames
         {
-            public static readonly string CloneObjects = "CloneObjects";
-            public static readonly string RelativeDistDir = "RelativeDistDir";
-            public static readonly string DistDir = "DistDir";
-            public static readonly string ReferenceButton = "ReferenceButton";
-            public static readonly string Clone2Variant = "Clone2Variant";
-            public static readonly string CloneButton = "CloneButton";
+            internal static readonly string CloneAssets = "CloneAssets";
+            internal static readonly string DistDir = "DistDir";
+            internal static readonly string ReferenceButton = "ReferenceButton";
+            internal static readonly string Clone2Variant = "Clone2Variant";
+            internal static readonly string CloneButton = "CloneButton";
         }
     }
 }

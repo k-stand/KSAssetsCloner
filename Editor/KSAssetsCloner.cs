@@ -8,10 +8,11 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 {
     [CreateAssetMenu(menuName = "KiriumeStand/KSAssetsCloner")]
     [Serializable]
-    public class KSAssetsCloner : ScriptableObject
+    internal class KSAssetsCloner : ScriptableObject
     {
         [SerializeField]
-        internal List<UnityEngine.Object> _CloneObjects = new();
+        [SerializeReference]
+        internal List<CloneAsset> _CloneAssets = new();
         [SerializeField]
         internal bool _RelativeDistDir;
         [SerializeField]
