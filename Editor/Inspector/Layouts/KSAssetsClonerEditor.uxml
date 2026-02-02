@@ -6,6 +6,5 @@
         <ui:Button text="..." name="ReferenceButton" />
     </ui:VisualElement>
     <ui:Label />
-    <ui:Toggle name="Clone2Variant" text="プレハブとマテリアルをバリアントとしてクローン" style="flex-direction: row;" />
     <ui:Button text="Clone" name="CloneButton" />
 </ui:UXML>

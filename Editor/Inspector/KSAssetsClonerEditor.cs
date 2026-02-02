@@ -64,7 +64,6 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
             ListView u_CloneAssets = BindHelper.Bind<ListView>(uxml, UxmlNames.CloneAssets, serializedObject, nameof(KSAssetsCloner._CloneAssets));
             TextField u_DistDir = BindHelper.Bind<TextField>(uxml, UxmlNames.DistDir, serializedObject, nameof(KSAssetsCloner._DistDir));
-            Toggle u_Clone2Variant = BindHelper.Bind<Toggle>(uxml, UxmlNames.Clone2Variant, serializedObject, nameof(KSAssetsCloner._Clone2Variant));
 
             u_CloneAssets.itemsAdded += (e) =>
             {
@@ -306,7 +305,6 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             internal static readonly string CloneAssets = "CloneAssets";
             internal static readonly string DistDir = "DistDir";
             internal static readonly string ReferenceButton = "ReferenceButton";
-            internal static readonly string Clone2Variant = "Clone2Variant";
             internal static readonly string CloneButton = "CloneButton";
         }
     }
