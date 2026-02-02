@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:Toggle name="DoClone" style="align-self: flex-end;" />
+        <uie:ObjectField name="CloneAsset" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,17 +1,15 @@
 {
-    "name": "io.github.kiriumestand.assetscloner",
-    "displayName": "Assets Cloner",
-    "version": "0.1.0",
+    "name": "io.github.kiriumestand.ksassetscloner",
+    "displayName": "KS Assets Cloner",
+    "version": "1.0.0",
     "unity": "2022.3",
     "description": "指定したアセットを参照関係を保持しながら複製するアセット",
     "author": {
         "name": "KiriumeStand",
-        "url": "https://github.com/KiriumeStand/AssetsCloner"
+        "url": "https://github.com/KiriumeStand/KSAssetsCloner"
     },
     "license": "MIT",
     "repo": "https://kiriumestand.github.io/vpm-repos/index.json",
     "url": "",
-    "vpmDependencies": {
-        "nadena.dev.ndmf": ">=1.10.1"
-    }
+    "vpmDependencies": {}
 }
