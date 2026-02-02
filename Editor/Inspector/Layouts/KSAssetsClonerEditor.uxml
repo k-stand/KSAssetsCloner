@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:ListView show-add-remove-footer="true" reorderable="true" name="CloneObjects" show-border="true" horizontal-scrolling="false" show-bound-collection-size="false" reorder-mode="Animated" header-title="クローンするファイル・フォルダ" show-foldout-header="true" show-alternating-row-backgrounds="All" selection-type="Multiple" />
+    <ui:Label text="保存先" />
+    <ui:Toggle name="RelativeDistDir" text="相対パス" />
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:TextField name="DistDir" style="flex-grow: 1;" />
+        <ui:Button text="..." name="ReferenceButton" />
+    </ui:VisualElement>
+    <ui:Label />
+    <ui:Toggle name="Clone2Variant" text="プレハブとマテリアルをバリアントとしてクローン" style="flex-direction: row;" />
+    <ui:Button text="Clone" name="CloneButton" />
+</ui:UXML>
