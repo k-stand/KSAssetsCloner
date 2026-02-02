@@ -75,7 +75,10 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             };
 
             Button u_ReferenceButton = uxml.Q<Button>(UxmlNames.ReferenceButton);
-            u_ReferenceButton.clicked += () => { };
+            u_ReferenceButton.clicked += () =>
+            {
+                OnReferenceButtonClickedEventHandler(uxml, serializedObject);
+            };
             Button u_CloneButton = uxml.Q<Button>(UxmlNames.CloneButton);
             u_CloneButton.clicked += () =>
             {
@@ -85,8 +88,16 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             return uxml;
         }
 
-        private static void OnReferenceButtonClickedEventHandler(VisualElement uxml)
+        private static void OnReferenceButtonClickedEventHandler(VisualElement uxml, SerializedObject so)
         {
+            string thisAssetDir = Path.GetDirectoryName(AssetDatabase.GetAssetPath(so.targetObject));
+            string selectDir = EditorUtility.OpenFolderPanel("title", thisAssetDir, "");
+            if (selectDir != "")
+            {
+                string relativePath = "./" + GetRelativePath(Path.GetFullPath(thisAssetDir + "\\"), selectDir + "\\");
+                KSAssetsCloner assetCloner = so.targetObject as KSAssetsCloner;
+                assetCloner._DistDir = relativePath;
+            }
         }
 
         private static void OnCloneButtonClickedEventHandler(VisualElement uxml, SerializedObject so)
