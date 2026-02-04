@@ -137,5 +137,9 @@ Assets/
 [Zlib License](https://github.com/KiriumeStand/KSAssetsCloner/blob/main/LICENSE.txt)
 
 ## 更新履歴
+[2026-02-05] 1.0.1  
+README.mdに内容を追加  
+その他、軽微な不具合の修正及び調整
+
 [2026-02-02] 1.0.0  
 公開
