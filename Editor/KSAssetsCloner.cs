@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace io.github.kiriumestand.ksassetscloner.editor
 {
-    [CreateAssetMenu(menuName = "KiriumeStand/KSAssetsCloner")]
+    [CreateAssetMenu(menuName = "Kiriume Stand/KS Assets Cloner")]
     [Serializable]
     internal class KSAssetsCloner : ScriptableObject
     {
         [SerializeField]
         [SerializeReference]
-        internal List<CloneAsset> _CloneAssets = new();
+        internal List<CloneAsset> _CloneAssets = new() { new CloneAsset() };
         [SerializeField]
         internal string _DistDir = "";
         [SerializeField]

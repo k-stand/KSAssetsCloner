@@ -115,11 +115,6 @@ namespace io.github.kiriumestand.ksassetscloner.editor
             if (distDir.StartsWith("./") || distDir == "")
             {
                 fullDistDir = Path.GetFullPath($"{thisAssetFullDir}/{distDir}");
-                if (!fullDistDir.Contains(ProjectRootDir + "Assets\\") && !fullDistDir.Contains(ProjectRootDir + "Packages\\"))
-                {
-                    EditorUtility.DisplayDialog("KS Assets Cloner", "保存先はプロジェクトの\"Assets/\"か\"Packages/\"フォルダ内でないといけません", "OK");
-                    return;
-                }
             }
             else
             {
@@ -132,6 +127,12 @@ namespace io.github.kiriumestand.ksassetscloner.editor
                     EditorUtility.DisplayDialog("KS Assets Cloner", "絶対パスで保存する場合、\"Assets/\"か\"Packages/\"で始まる必要があります", "OK");
                     return;
                 }
+            }
+
+            if (!fullDistDir.Contains(ProjectRootDir + "Assets\\") && !fullDistDir.Contains(ProjectRootDir + "Packages\\"))
+            {
+                EditorUtility.DisplayDialog("KS Assets Cloner", "保存先はプロジェクトの\"Assets/\"か\"Packages/\"フォルダ内でないといけません", "OK");
+                return;
             }
 
             Dictionary<string, CloneInfo> assetPath2CloneInfoMap = new();
@@ -180,6 +181,10 @@ namespace io.github.kiriumestand.ksassetscloner.editor
                     assetPath2CloneInfoMap[baseFullPath] = new() { OriginalFullPath = baseFullPath, CloneFullPath = fixedBaseDistPath, IsFolder = false, DoClone = cloneAssetInfo._DoClone };
                 }
             }
+
+            int cloneCount = assetPath2CloneInfoMap.Values.Count(ci => ci.DoClone);
+            bool clickedOK = EditorUtility.DisplayDialog("KS Assets Cloner", $"{cloneCount}個のアセットを複製します", "OK", "Cancel");
+            if (!clickedOK) return;
 
             foreach (CloneInfo cloneInfo in assetPath2CloneInfoMap.Values)
             {
