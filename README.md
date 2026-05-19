@@ -139,9 +139,15 @@ Assets/
 [Zlib License](https://github.com/k-stand/KSAssetsCloner/blob/main/LICENSE.txt)
 
 ## 更新履歴
+[YYYY-MM-DD] x.x.x  
+- example
+
+[YYYY-MM-DD] 1.1.0  
+- 作者名義の変更及び新リポジトリへの移行
+
 [2026-02-05] 1.0.1  
-README.mdに内容を追加  
-その他、軽微な不具合の修正及び調整
+- README.mdに内容を追加  
+- その他、軽微な不具合の修正及び調整
 
 [2026-02-02] 1.0.0  
-公開
+- 公開
