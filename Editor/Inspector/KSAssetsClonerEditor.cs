@@ -4,7 +4,7 @@ and https://github.com/Narazaka/CopyAssetsWithDependency by Narazaka.
 */
 /*
 Copyright (c) 2020 Narazaka
-Copyright (c) 2026 KiriumeStand
+Copyright (c) 2026 k-stand
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
@@ -35,7 +35,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace io.github.kiriumestand.ksassetscloner.editor
+namespace com.github.k_stand.ksassetscloner.editor
 {
     [CustomEditor(typeof(KSAssetsCloner))]
     public class KSAssetsClonerEditor : Editor

@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace io.github.kiriumestand.ksassetscloner.editor
+namespace com.github.k_stand.ksassetscloner.editor
 {
     [Serializable]
     internal class CloneAsset

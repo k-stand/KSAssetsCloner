@@ -4,7 +4,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace io.github.kiriumestand.ksassetscloner.editor
+namespace com.github.k_stand.ksassetscloner.editor
 {
     [Serializable]
     internal class CloneAssetDrawer : ScriptableObject

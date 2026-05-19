@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace io.github.kiriumestand.ksassetscloner.editor
+namespace com.github.k_stand.ksassetscloner.editor
 {
-    [CreateAssetMenu(menuName = "Kiriume Stand/KS Assets Cloner")]
+    [CreateAssetMenu(menuName = "K-Stand/KS Assets Cloner")]
     [Serializable]
     internal class KSAssetsCloner : ScriptableObject
     {

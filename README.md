@@ -10,15 +10,17 @@ https://github.com/Narazaka/CopyAssetsWithDependency
 
 ## インストール
 ### VCC(ALCOM)を利用する方法
-1. https://kiriumestand.github.io/vpm-repos/ の`Add to VCC`を押してVCCにリポジトリを追加します。
+1. https://k_stand.github.io/vpm-repos/ の`Add to VCC`を押してVCCにリポジトリを追加します。
 2. 導入したいプロジェクトに`KS Assets Cloner`をインストールしてください。
 
 ### VPAI unitypackageでVCCにインストールする方法
-1. https://github.com/KiriumeStand/KSAssetsCloner/releases/latest から`io.github.kiriumestand.ksassetscloner-installer.unitypackage`をダウンロードして、導入したいプロジェクトにインポートしてください。
+1. 以下から任意のバージョンの`com.github.k-stand.ksassetscloner.X.x.x-installer.unitypackage`をダウンロードして、導入したいプロジェクトにインポートしてください。
+
+1.x.x : [com.github.k-stand.ksassetscloner.1.x.x-installer.unitypackage](https://github.com/k-stand/KSAssetsCloner/releases/download/1.0.2/com.github.k-stand.ksanimatorclipboard.1.x.x-installer.unitypackage)
 
 ## 使用方法
 ### 基本的な使い方
-1. Projectウィンドウで任意のディレクトリで右クリックをし、`Create`->`Kiriume Stand`->`KS Assets Cloner`を選択します。
+1. Projectウィンドウで任意のディレクトリで右クリックをし、`Create`->`K-Stand`->`KS Assets Cloner`を選択します。
 2. 作成した`KS Assets Cloner`アセットのInspectorで、`複製するアセット・フォルダ`と書かれたリストに複製したいアセットもしくはフォルダを設定します。
 3. 保存先のパスを指定します。直接パスを入力するか、`...`ボタンを押して保存先のディレクトリを選択します。  
 ボタンから選択した場合、相対パスが設定されます。  
@@ -134,7 +136,7 @@ Assets/
 ```
 
 ## License
-[Zlib License](https://github.com/KiriumeStand/KSAssetsCloner/blob/main/LICENSE.txt)
+[Zlib License](https://github.com/k-stand/KSAssetsCloner/blob/main/LICENSE.txt)
 
 ## 更新履歴
 [2026-02-05] 1.0.1  
