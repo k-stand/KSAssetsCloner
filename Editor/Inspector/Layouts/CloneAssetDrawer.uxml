@@ -3,4 +3,8 @@
         <ui:Toggle name="DoClone" style="align-self: flex-end;" />
         <uie:ObjectField name="CloneAsset" style="flex-grow: 1;" />
     </ui:VisualElement>
+    <ui:VisualElement style="flex-direction: row;">
+        <ui:Label tabindex="-1" text="リネーム" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center;" />
+        <ui:TextField style="flex-grow: 1;" />
+    </ui:VisualElement>
 </ui:UXML>

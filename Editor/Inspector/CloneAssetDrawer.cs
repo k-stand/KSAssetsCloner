@@ -4,7 +4,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace io.github.kiriumestand.ksassetscloner.editor
+namespace com.github.k_stand.ksassetscloner.editor
 {
     [Serializable]
     internal class CloneAssetDrawer : ScriptableObject
@@ -45,6 +45,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
 
             Toggle u_DoClone = BindHelper.BindRelative<Toggle>(uxml, UxmlNames.DoClone, property, nameof(CloneAsset._DoClone));
             ObjectField u_CloneAsset = BindHelper.BindRelative<ObjectField>(uxml, UxmlNames.CloneAsset, property, nameof(CloneAsset._CloneAsset));
+            TextField u_Rename = BindHelper.BindRelative<TextField>(uxml, UxmlNames.Rename, property, nameof(CloneAsset._Rename));
 
             return uxml;
         }
@@ -53,6 +54,7 @@ namespace io.github.kiriumestand.ksassetscloner.editor
         {
             public static readonly string DoClone = "DoClone";
             public static readonly string CloneAsset = "CloneAsset";
+            public static readonly string Rename = "Rename";
         }
     }
 }
