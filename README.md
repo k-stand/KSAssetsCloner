@@ -16,7 +16,7 @@ https://github.com/Narazaka/CopyAssetsWithDependency
 ### VPAI unitypackageでVCCにインストールする方法
 1. 以下から任意のバージョンの`com.github.k-stand.ksassetscloner.X.x.x-installer.unitypackage`をダウンロードして、導入したいプロジェクトにインポートしてください。
 
-2.x.x : [com.github.k-stand.ksassetscloner.2.x.x-installer.unitypackage](https://github.com/k-stand/KSAssetsCloner/releases/download/2.0.0/com.github.k-stand.ksanimatorclipboard.1.x.x-installer.unitypackage)
+2.x.x : [com.github.k-stand.ksassetscloner.2.x.x-installer.unitypackage](https://github.com/k-stand/KSAssetsCloner/releases/download/2.0.0/com.github.k-stand.ksanimatorclipboard.2.x.x-installer.unitypackage)
 
 ## 使用方法
 ### 基本的な使い方
