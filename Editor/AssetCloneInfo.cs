@@ -17,7 +17,7 @@ namespace com.github.k_stand.ksassetscloner.editor
         /// <summary>フォルダかどうか</summary>
         public bool IsFolder { get; private set; }
 
-        /// <summary>クローンのリネーム（空文字列でリネーム無し）</summary>
+        /// <summary>クローン後のアセット名。空文字の場合は元の名前を使用</summary>
         public string Rename { get; private set; }
 
         public AssetCloneInfo(string originalFullPath, string cloneFullPath, bool doClone = true, bool isFolder = false, string rename = "")

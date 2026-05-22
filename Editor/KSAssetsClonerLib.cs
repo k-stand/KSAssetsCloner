@@ -1,3 +1,31 @@
+/*
+Portions of this code are based on https://qiita.com/k7a/items/eb5a3ee4ed6448343543 by k7a
+and https://github.com/Narazaka/CopyAssetsWithDependency by Narazaka.
+*/
+/*
+Copyright (c) 2020 Narazaka
+Copyright (c) 2026 k-stand
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+   1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+
+   2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+
+   3. This notice may not be removed or altered from any source
+   distribution.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -234,7 +262,7 @@ namespace com.github.k_stand.ksassetscloner.editor
                 map[dirPath] = new(dirPath, Path.Combine(fixedDistFullPath, rel), doClone, true);
             }
 
-            errorMessage = "";
+            errorMessage = null;
             return true;
         }
 
@@ -261,7 +289,7 @@ namespace com.github.k_stand.ksassetscloner.editor
 
             map[baseSrcFullPath] = new(baseSrcFullPath, fixedDistFullPath, doClone, false);
 
-            errorMessage = "";
+            errorMessage = null;
             return true;
         }
 

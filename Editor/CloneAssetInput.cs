@@ -11,7 +11,7 @@ namespace com.github.k_stand.ksassetscloner.editor
         /// <summary>このアセットをクローンするかどうか</summary>
         public bool DoClone { get; private set; }
 
-        /// <summary>クローンのリネーム（空文字列でリネーム無し）</summary>
+        /// <summary>クローン後のアセット名。空文字の場合は元の名前を使用</summary>
         public string Rename { get; private set; }
 
         public CloneAssetInput(UnityEngine.Object asset, bool doClone = true, string rename = "")
