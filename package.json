@@ -8,7 +8,7 @@
         "name": "k-stand",
         "url": "https://github.com/k-stand/KSAssetsCloner"
     },
-    "license": "MIT",
+    "license": "Zlib",
     "repo": "https://k-stand.github.io/vpm-repos/index.json",
     "url": "",
     "legacyPackages": [
