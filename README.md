@@ -284,6 +284,9 @@ public static class MyCloneScript
 [YYYY-MM-DD] x.x.x  
 - (次バージョンの変更内容をここに記載)
 
+[2026-05-23] 2.0.2  
+- リネーム機能が動作しない問題
+
 [2026-05-23] 2.0.1  
 - package.jsonのLicense設定が間違っている問題の修正
 - README.mdのリンクの誤りの修正
