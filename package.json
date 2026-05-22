@@ -1,7 +1,7 @@
 {
     "name": "com.github.k-stand.ksassetscloner",
     "displayName": "KS Assets Cloner",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "unity": "2022.3",
     "description": "指定したアセットを参照関係を保持しながら複製するアセット",
     "author": {

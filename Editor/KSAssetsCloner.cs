@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace com.github.k_stand.ksassetscloner.editor
