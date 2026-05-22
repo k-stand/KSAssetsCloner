@@ -1,14 +1,14 @@
 {
     "name": "com.github.k-stand.ksassetscloner",
     "displayName": "KS Assets Cloner",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "unity": "2022.3",
     "description": "指定したアセットを参照関係を保持しながら複製するアセット",
     "author": {
         "name": "k-stand",
         "url": "https://github.com/k-stand/KSAssetsCloner"
     },
-    "license": "MIT",
+    "license": "Zlib",
     "repo": "https://k-stand.github.io/vpm-repos/index.json",
     "url": "",
     "legacyPackages": [
