@@ -10,7 +10,7 @@ https://github.com/Narazaka/CopyAssetsWithDependency
 
 ## インストール
 ### VCC(ALCOM)を利用する方法
-1. https://k_stand.github.io/vpm-repos/ の`Add to VCC`を押してVCCにリポジトリを追加します。
+1. https://k-stand.github.io/vpm-repos/ の`Add to VCC`を押してVCCにリポジトリを追加します。
 2. 導入したいプロジェクトに`KS Assets Cloner`をインストールしてください。
 
 ### VPAI unitypackageでVCCにインストールする方法
